@@ -57,12 +57,7 @@ def event_finisher():
         fight_pumpkin_event(enemy_list[1])
         fight_yinyang_event(enemy_list[2])
         fight_gi_event(enemy_list[3])
-        for i in range(1600):
-            print("doing leveling")
-            if(i%10 == 0):
-                time.sleep(30)
-                print("rest for 30 seconds")
-            start_leveling()
+        start_leveling(3200)
 
 
     print("All selected event bosses have been fought. Restarting the cycle...")
