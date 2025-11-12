@@ -14,6 +14,7 @@ def get_all_characters():
     result = send_amf_request("SystemLogin.getAllCharacters", parameters)
     # save_to_json(result,"all_chars")
     config.all_char = result
+    # print(config.all_char)
     char_list = []
     for i in range(result["total_characters"]):
         print(i+1,". Character ID: ",result["account_data"][i]["char_id"],"Character Name: ",result["account_data"][i]["character_name"],"Character Level: ",result["account_data"][i]["character_level"])

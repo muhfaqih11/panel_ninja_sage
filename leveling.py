@@ -1,4 +1,4 @@
-from utils import send_amf_request, flatten_json, get_data_by_id, StatManager, CUCSG,open_json_to_dict
+from utils import send_amf_request, flatten_json, get_data_by_id, StatManager, CUCSG,open_json_to_dict, save_fight_data
 import time
 import keyboard
 import config
@@ -47,6 +47,7 @@ def finish_battle(mission_id, char_id, battle_id, session_key):
 
     parameters = [char_id, mission_id, battle_id, _loc2_, 0, session_key, battle_hash, 0]
     result = send_amf_request("BattleSystem.finishMission", parameters)
+    save_fight_data(result)
 
     return result
 
@@ -69,7 +70,13 @@ def start_leveling(loop_times=None):
     session_key = config.login_data["sessionkey"]
 
     if loop_times is None:
+        iter = 0
         while True:
+            if(iter==15 and iter!=1):
+                print("rate limited 30 seconds")
+                time.sleep(30)
+                iter=0
+
             if keyboard.is_pressed('q'):
                 print("Stopping the levelling...")
                 break
@@ -77,8 +84,13 @@ def start_leveling(loop_times=None):
             mission_same_level = get_levelling_mission(char_level)
 
             char_level = process_mission(mission_same_level, char_level, char_id, session_key)
+            iter +=1
     else:
         for i in range(loop_times):
+            if(i%15==0 and i!=0):
+                print("rate limited 30 seconds")
+                time.sleep(30)
+                iter=0
 
             if keyboard.is_pressed('q'):
                 print("Stopping the levelling...")

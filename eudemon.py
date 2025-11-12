@@ -1,4 +1,4 @@
-from utils import send_amf_request, save_to_json, open_json_to_dict , flatten_json, get_data_by_id, StatManager, CUCSG
+from utils import send_amf_request, save_to_json, open_json_to_dict , flatten_json, get_data_by_id, StatManager, CUCSG, save_fight_data
 import struct
 from typing import List
 import config
@@ -6,7 +6,7 @@ import time
 import keyboard
 
 gamedata = open_json_to_dict("data/gamedata.json")
-battle_hash = "eyJpdGVtcyI6eyJhY2Nlc3NvcnkiOiJhY2Nlc3NvcnlfMDQiLCJiYWNrX2l0ZW0iOiJiYWNrXzIyMDIiLCJ3ZWFwb24iOiJ3cG5fMjIxMyIsInNldCI6InNldF84MzFfMCJ9LCJfX19fIjpbeyJfIjoic2tpbGxfMDQiLCJfXyI6MjMzOTd9LHsiXyI6InNraWxsXzIzMDciLCJfXyI6NTQxMTR9LHsiXyI6InNraWxsXzAzIiwiX18iOjIyOTM0fSx7Il8iOiJza2lsbF82NTMiLCJfXyI6ODE1MTJ9LHsiXyI6InNraWxsXzE5NSIsIl9fIjo2NTczM30seyJfIjoic2tpbGxfMzE0IiwiX18iOjUyNjgxfSx7Il8iOiJza2lsbF8xODciLCJfXyI6NDc1Nzl9LHsiXyI6InNraWxsXzE2NCIsIl9fIjo1NDQ0NH1dLCJzdGF0dXMiOnsiZWFydGgiOjAsImxpZ2h0bmluZyI6MCwiZmlyZSI6MCwid2F0ZXIiOjAsIndpbmQiOjczfSwiYnl0ZXMiOnsiX19fIjoiMTc2Mjg0MzY2NjQwMzY3YzNjYzk5OWE5ZjllOTUxYTFkMzMyMTE1NDViODRiMmQ1YTYzOTMzYjAwMjA0MzMwMDBjM2JiNDEwZmIxNzYyODQzNjY2MTc2Mjg0MzY2NjE3NjI4NDM2NjYxNzYyODQzNjY2IiwiX19fX19fIjo4MjI4NDQ3LCJfIjo4MjI4NDQ3LCJfXyI6ODIyODQ0NywiX19fXyI6MTc2Mjg0MzY2NiwiX19fX18iOjgyMjg0NDd9fQ=="
+battle_hash = config.BATTLE_HASH
 
 
 def fight_eudemon_boss():
@@ -38,6 +38,9 @@ def fight_eudemon_boss():
             print(f"Fighting boss: {b['name']} (Level: {b['lvl']})")
             parameters = [char_id, b['num'], session_key]
             eudemon_boss_battle_data = send_amf_request("EudemonGarden.startHunting", parameters)
+            if(eudemon_boss_battle_data['status']!=1):
+                print("finished due to error")
+                break
             # print(eudemon_boss_battle_data)
             battle_id = eudemon_boss_battle_data['code']
             time.sleep(30)
@@ -46,7 +49,8 @@ def fight_eudemon_boss():
             parameters = [char_id, b['num'], battle_id, _loc2_, session_key, battle_hash]
 
             eudemon_boss_battle_result = send_amf_request("EudemonGarden.finishHunting", parameters)
-            
+            save_fight_data(eudemon_boss_battle_result)
+
             if eudemon_boss_battle_result['status'] == 1:
                 print(f"Successfully defeated boss","Gained xp: ",eudemon_boss_battle_result['result'][0],"Gained Gold: ",eudemon_boss_battle_result['result'][1])
         else:

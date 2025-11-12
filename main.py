@@ -10,7 +10,7 @@ from leveling import start_leveling
 from resources import download_all_resources
 from utils import save_to_json, open_json_to_dict
 from eudemon import fight_eudemon_boss
-from cd_event import fight_cd_event, fight_pumpkin_event, fight_yinyang_event, fight_gi_event
+from event import fight_cd_event, fight_pumpkin_event, fight_yinyang_event, fight_gi_event
 from event_finisher import event_finisher
 
 
@@ -100,9 +100,9 @@ class NinjaSageApp:
         """Handle character selection"""
         print("")
         print("List of your characters:")
-        config.all_char = amf_req.get_all_characters()
+        all_char = amf_req.get_all_characters()
         
-        if not config.all_char:
+        if not all_char:
             print("No characters found!")
             return False
         
@@ -110,15 +110,15 @@ class NinjaSageApp:
         while True:
             try:
                 chosen_character = int(input("Choose your character: "))
-                if 1 <= chosen_character <= len(config.all_char):
+                if 1 <= chosen_character <= len(all_char):
                     break
                 else:
-                    print(f"Please enter a number between 1 and {len(config.all_char)}")
+                    print(f"Please enter a number between 1 and {len(all_char)}")
             except ValueError:
                 print("Please enter a valid number")
         
         # Get the selected character data
-        selected_char = config.all_char[chosen_character-1]
+        selected_char = all_char[chosen_character-1]
         config.char_data = amf_req.get_character_data(selected_char)
         
         if not config.char_data:
@@ -140,7 +140,7 @@ class NinjaSageApp:
         print(f"Name: {char_data.get('character_name', 'Unknown')} || "
               f"Exp: {char_data.get('character_xp', 0)} || "
               f"Gold: {char_data.get('character_gold', 0)} || "
-              f"Token: Lu miskin")
+              f"Token: {config.all_char['tokens']}")
         print("")
     
     def show_main_menu(self):

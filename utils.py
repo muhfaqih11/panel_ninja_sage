@@ -13,6 +13,7 @@ import base64
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 import time
+
 def open_json_to_dict(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         data = json.load(file)
@@ -572,3 +573,7 @@ class CryptExact:
         # Convert back from hex to string
         decrypted_hex = decrypted_bytes.hex()
         return bytes.fromhex(decrypted_hex).decode('utf-8')
+    
+def save_fight_data(data):
+    with open("fight_logs.txt", 'a') as file:
+        file.write(f"{data}\n")  # Write the data as plain text, followed by a newline
