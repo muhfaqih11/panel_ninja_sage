@@ -30,13 +30,13 @@ class EventFinisherConfigDialog:
         self.dialog.geometry(f"+{x}+{y}")
         
         self.create_widgets()
-        self.independence_targets = {
-            "ene_2104": 0,
-            "ene_2105": 0,
-            "ene_2106": 0,
-            "ene_2103": 0,
-            "ene_2102": 0
-        }
+        # self.independence_targets = {
+        #     "ene_2104": 0,
+        #     "ene_2105": 0,
+        #     "ene_2106": 0,
+        #     "ene_2103": 0,
+        #     "ene_2102": 0
+        # }
     
     def create_widgets(self):
         """Create the configuration form widgets"""
