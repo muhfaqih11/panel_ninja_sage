@@ -1,5 +1,0 @@
-{'status': 1, 'error': 0, 'result': [3200, 3000, []], 'level': 74, 'xp': 4211209, 'level_up': False, 'account_tokens': 5228}
-{'status': 1, 'error': 0, 'result': [3200, 3000, []], 'level': 74, 'xp': 4214409, 'level_up': False, 'account_tokens': 5228}
-{'status': 1, 'error': 0, 'result': [3200, 3000, []], 'level': 74, 'xp': 4217609, 'level_up': False, 'account_tokens': 5228}
-{'status': 1, 'error': 0, 'result': [3200, 3000, []], 'level': 74, 'xp': 4220809, 'level_up': False, 'account_tokens': 5228}
-{'status': 1, 'error': 0, 'result': [3200, 3000, []], 'level': 74, 'xp': 4224009, 'level_up': False, 'account_tokens': 5228}
