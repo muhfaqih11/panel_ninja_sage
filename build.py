@@ -15,7 +15,7 @@ def build_exe():
     '--onefile',  # Single executable
     '--console',  # Show console window (to view logs)
     '--add-data=data;data',  # Include the 'data' folder
-    '--add-data=quick_login.json;.',  # Include specific config file
+    # '--add-data=quick_login.json;.',  # Include specific config file
     '--hidden-import=config',
     '--hidden-import=amf_req',
     '--hidden-import=leveling',

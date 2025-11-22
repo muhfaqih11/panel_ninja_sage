@@ -26,17 +26,17 @@ This repository hosts the Ninja Sage Panel GUI and core helpers that talk to Nin
 2. Install dependencies and create the environment (runs `uv install` once):
 
    ```powershell
-   uv install
+   uv sync
    ```
 
 3. Run the GUI or build script inside the `uv` environment:
 
    ```powershell
-   uv run python main.py
-   uv run python build.py
+   uv run main.py
+   uv run build.py
    ```
 
-`uv install` reads `pyproject.toml`, so keeping the dependency list there ensures `uv` stays in sync with `requirements.txt`.
+`uv sync` reads `pyproject.toml`, so keeping the dependency list there ensures `uv` stays in sync with `requirements.txt`.
 
 ## Build
 
@@ -62,7 +62,7 @@ Adjust any other flags (icons, hidden imports) as needed for your platform.
 2. Run the GUI with:
 
    ```powershell
-   python main.py
+   uv run main.py
    ```
 
    or execute the bundled binary produced by PyInstaller.

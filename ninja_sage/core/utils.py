@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 import requests
 import pyamf
 from pyamf import remoting
@@ -14,8 +16,14 @@ import time
 
 from . import config
 
+def resource_path(relative_path: str) -> str:
+    # When bundled with PyInstaller, files are unpacked into _MEIPASS
+    base_path = getattr(sys, "_MEIPASS", os.path.abspath(".")) 
+    return os.path.join(base_path, relative_path)
+
+
 def open_json_to_dict(filename):
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(resource_path(filename), 'r', encoding='utf-8') as file:
         data = json.load(file)
     return data
 
